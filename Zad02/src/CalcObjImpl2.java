@@ -5,7 +5,8 @@ public class CalcObjImpl2 extends UnicastRemoteObject implements CalcObject2 {
 
 
     public CalcObjImpl2() throws RemoteException {
-        super(); }
+        super();
+    }
 
     public ResultType calculate(InputType inParam) throws RemoteException {
         double zm1, zm2;

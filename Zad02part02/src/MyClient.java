@@ -4,20 +4,13 @@ import java.rmi.registry.Registry;
 public class MyClient {
 
     public static void main(String[] args) {
+
         double wynik;
-
         CalcObject zObiekt;
-
-        System.setProperty(
-                "java.security.policy",
-                //Adres do waszego pliku srv.policy
-                "/FILEPATH-CHANGE-IT/Zad02part02/srv.policy"
-        );
 
         try {
             Registry registry = LocateRegistry.getRegistry("localhost", 1099);
             zObiekt = (CalcObject) registry.lookup("metoda");
-
         } catch (Exception e) {
             e.printStackTrace();
             return;
@@ -55,12 +48,5 @@ public class MyClient {
             System.out.println("Blad zdalnego wywolania."); e.printStackTrace();
             return;
         }
-
-
-
-
-
-
-        return;
     }
 }
