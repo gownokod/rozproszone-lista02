@@ -1,0 +1,2 @@
+# rozproszone-lista02
+💩
