@@ -1,0 +1,58 @@
+//SERVER:
+import java.rmi.RMISecurityManager;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+
+public class MyServer {
+
+    public static void main(String[] args) {
+        try {
+
+            LocateRegistry.createRegistry(1099);
+            CalculatorObjectImpl implObiektu = new CalculatorObjectImpl();
+            java.rmi.Naming.rebind("//localhost/calculate", implObiektu);
+
+            System.out.println("Server is registered now :-)");
+            System.out.println("Press Ctrl+C to stop...");
+        } catch (Exception e) {
+            System.out.println("SERVER CANT'T BE REGISTERED!");
+            e.printStackTrace();
+        }
+
+    }
+}
+
+
+
+//KLIENT
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+
+public class MyClient {
+
+    static double wynik;
+    static CalculatorObject calc;
+
+    public static void main(String[] args) {
+
+        CalculatorObject zObiekt;
+
+        try {
+            Registry registry = LocateRegistry.getRegistry("localhost", 1099);
+            zObiekt = (CalculatorObject) registry.lookup("calculate");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+
+        try {
+            wynik = zObiekt.calculate(1.1, 2.2);
+        } catch (Exception e) {
+            System.out.println("Blad zdalnego wywolania.");
+            e.printStackTrace();
+            return;
+        }
+        System.out.println("Wynik = " + wynik);
+    }
+}
+
